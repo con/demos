@@ -18,31 +18,29 @@ say "Creating a DataLad dataset..."
 run "datalad create -c text2git myproject"
 run "cd myproject"
 
-say "Creating directory structure for YODA principles..."
-run "mkdir -p inputs outputs"
-run "datalad save -m 'Add YODA structure'"
+say "Creating output directory for YODA principles..."
+run "mkdir -p outputs"
 
-say "Adding a sample BOLD fMRI file..."
-run "curl -L -o inputs/sub-01_bold.nii.gz https://github.com/datalad/example-data/raw/master/bids/sub-01/func/sub-01_task-rest_bold.nii.gz"
-run "datalad save -m 'Add sample BOLD data' inputs/"
+say "Installing example BOLD fMRI dataset from ReproNim..."
+run "datalad install -d . -s https://github.com/ReproNim/ds000003-demo sourcedata/raw"
 
 # Stage 1: Basic Execution
 say "Stage 1: Running nib-ls with duct for structured logging..."
-run "datalad run -m 'Check BOLD file metadata' --input inputs/sub-01_bold.nii.gz duct -- nib-ls inputs/sub-01_bold.nii.gz"
+run "datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
 
 say "Duct captured the command, output, and exit code."
 run "con-duct ls"
 
 # Stage 2: Resource Monitoring
 say "Stage 2: Check file size with resource monitoring..."
-run "datalad run -m 'Check file size' --input inputs/sub-01_bold.nii.gz duct -- du -sh inputs/sub-01_bold.nii.gz"
+run "datalad run -m 'Check file size' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- du -sh sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
 
 say "Duct tracked peak memory and CPU usage."
-run "con-duct ls -f summary"
+run "con-duct ls -f summaries"
 
 # Stage 3: Output Tracking
 say "Stage 3: Create compressed copy, tracking outputs..."
-run "datalad run -m 'Compress BOLD file' --input inputs/sub-01_bold.nii.gz --output outputs/sub-01_bold.nii.gz duct -- gzip -c inputs/sub-01_bold.nii.gz > outputs/sub-01_bold.nii.gz"
+run "datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/sub-02_bold.nii.gz duct -- bash -c 'gzip -c sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz > outputs/sub-02_bold.nii.gz'"
 
 say "New output automatically tracked and committed by datalad."
 run "ls -lh outputs/"
@@ -50,7 +48,7 @@ run "git log --oneline -n 5"
 
 # Stage 4: Real Analysis (simplified)
 say "Stage 4: Running a more complex analysis workflow..."
-run "datalad run -m 'Extract brain mask' --input inputs/sub-01_bold.nii.gz --output outputs/mask.nii.gz duct -- python -c 'import nibabel as nib; import numpy as np; img = nib.load(\"inputs/sub-01_bold.nii.gz\"); mask = np.ones(img.shape[:3]); nib.save(nib.Nifti1Image(mask, img.affine), \"outputs/mask.nii.gz\")'"
+run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python -c 'import nibabel as nib; import numpy as np; img = nib.load(\"sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz\"); mask = np.ones(img.shape[:3]); nib.save(nib.Nifti1Image(mask, img.affine), \"outputs/mask.nii.gz\")'"
 
 say "Check the execution history..."
 run "con-duct ls"
@@ -58,7 +56,7 @@ run "con-duct ls"
 # Final: Comparison
 say "Final view: Compare duct logs with datalad provenance..."
 run "echo '=== Duct execution logs ==='"
-run "con-duct ls -f summary"
+run "con-duct ls -f summaries"
 
 say "And the DataLad commit history..."
 run "git log --oneline"
