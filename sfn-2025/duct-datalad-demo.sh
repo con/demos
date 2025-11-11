@@ -15,6 +15,9 @@ say "We'll show how these tools compose for structured, reproducible execution."
 say "Setting up demo environment in $DEMO_ROOT..."
 run "mkdir -p $DEMO_ROOT"
 run "cd $DEMO_ROOT"
+
+say "Cleaning up any previous demo run..."
+run "chmod -R +w myproject 2>/dev/null || true"
 run "rm -rf myproject"
 
 say "Creating a DataLad dataset..."
