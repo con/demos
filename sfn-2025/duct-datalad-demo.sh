@@ -2,6 +2,9 @@
 
 # SFN 2025 Demo: Duct + DataLad for Reproducible Neuroimaging Workflows
 
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Set demo root directory
 DEMO_ROOT=~/tmp
 
@@ -48,7 +51,7 @@ run "git log --oneline -n 5"
 
 # Stage 4: Real Analysis (simplified)
 say "Stage 4: Running a more complex analysis workflow..."
-run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python -c 'import nibabel as nib; import numpy as np; img = nib.load(\"sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz\"); mask = np.ones(img.shape[:3]); nib.save(nib.Nifti1Image(mask, img.affine), \"outputs/mask.nii.gz\")'"
+run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python $SCRIPT_DIR/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz"
 
 say "Check the execution history..."
 run "con-duct ls"
