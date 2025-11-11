@@ -50,7 +50,7 @@ run "datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-
 
 say "New output automatically tracked and committed by datalad."
 run "ls -lh outputs/"
-run "git log --oneline -n 5"
+run "git --no-pager log --oneline -n 5"
 
 # Stage 4: Real Analysis (simplified)
 say "Stage 4: Running a more complex analysis workflow..."
@@ -65,6 +65,6 @@ run "echo '=== Duct execution logs ==='"
 run "con-duct ls -f summaries"
 
 say "And the DataLad commit history..."
-run "git log --oneline"
+run "git --no-pager log --oneline"
 
 say "Demo complete! Duct + DataLad = Transparent, reproducible workflows."
