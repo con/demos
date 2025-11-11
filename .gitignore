@@ -1,2 +1,29 @@
-# Repos included for AI context
-ai-repos/
+# Cloned tools for AI context
+repos/
+
+# Virtual environments
+venv/
+venvs/
+*/venv/
+**/venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
