@@ -1,0 +1,21 @@
+source /home/austin/devel/demos/sfn-2025/venv/bin/activate     # 0.06 sec
+mkdir -p /home/austin/tmp     # 0.05 sec
+cd /home/austin/tmp     # 0.06 sec
+chmod -R +w myproject 2>/dev/null || true     # 0.06 sec
+rm -rf myproject     # 0.06 sec
+datalad create -c text2git myproject     # 0.85 sec
+cd myproject     # 0.06 sec
+mkdir -p outputs     # 0.06 sec
+datalad install -d . -s https://github.com/ReproNim/ds000003-demo sourcedata/raw     # 1.48 sec
+datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz     # 2.25 sec
+con-duct ls     # 0.11 sec
+datalad run -m 'Check file size' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- du -sh sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz     # 0.47 sec
+con-duct ls -f summaries     # 0.11 sec
+datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/sub-02_bold.nii.gz duct -- bash -c 'gzip -c sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz > outputs/sub-02_bold.nii.gz'     # 1.10 sec
+ls -lh outputs/     # 0.06 sec
+git --no-pager log --oneline -n 5     # 0.06 sec
+datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python /home/austin/devel/demos/sfn-2025/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz     # 0.68 sec
+con-duct ls     # 0.11 sec
+echo '=== Duct execution logs ==='     # 0.06 sec
+con-duct ls -f summaries     # 0.11 sec
+git --no-pager log --oneline     # 0.06 sec
