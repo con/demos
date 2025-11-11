@@ -6,7 +6,7 @@ This repository contains various demonstration projects and examples.
 
 | Demo | Description | Resources |
 |------|-------------|-----------|
-| [sfn-2025](./sfn-2025/) | TBD | |
+| [sfn-2025](./sfn-2025/) | Duct + DataLad for reproducible neuroimaging workflows | ![Demo](./sfn-2025/duct-datalad-demo.gif) |
 
 ## Structure
 
