@@ -5,11 +5,11 @@
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Activate virtual environment
-source "$SCRIPT_DIR/venv/bin/activate"
-
 # Set demo root directory
 DEMO_ROOT=~/tmp
+
+say "Activating Python environment..."
+run "source $SCRIPT_DIR/venv/bin/activate"
 
 say "Welcome to the Duct + DataLad demo!"
 say "We'll show how these tools compose for structured, reproducible execution."
