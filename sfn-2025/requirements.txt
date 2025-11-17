@@ -1,4 +1,4 @@
 # Core dependencies for demos
 datalad
 nibabel
-con-duct
+con-duct[all]
