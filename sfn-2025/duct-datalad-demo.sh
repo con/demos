@@ -19,10 +19,6 @@ say "Setting up demo environment in $DEMO_ROOT..."
 run "mkdir -p $DEMO_ROOT"
 run "cd $DEMO_ROOT"
 
-say "Cleaning up any previous demo run..."
-run "chmod -R +w myproject 2>/dev/null || true"
-run "rm -rf myproject"
-
 say "Creating a DataLad dataset..."
 run "datalad create -c text2git myproject"
 run "cd myproject"
@@ -65,10 +61,6 @@ run "con-duct ls"
 # Stage 5: Real-world MRIQC dataset
 say "Stage 5: Exploring a real-world MRIQC dataset with existing duct logs..."
 run "cd $DEMO_ROOT"
-
-say "Cleaning up any previous clone..."
-run "chmod -R +w ds000007-mriqc-hoffstaedter 2>/dev/null || true"
-run "rm -rf ds000007-mriqc-hoffstaedter"
 
 say "Cloning ds000007-mriqc from cerebra.fz-juelich.de..."
 run "datalad clone https://cerebra.fz-juelich.de/f.hoffstaedter/ds000007-mriqc.git ds000007-mriqc-hoffstaedter"
