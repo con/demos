@@ -87,3 +87,13 @@ datalad run -m "Generate GIF from asciinema recording" \
 Note: Using `podman` instead of `docker` avoids creating files owned by root.
 
 This creates `outputs/duct-datalad-demo.gif` with full provenance tracking. The demo also generates a resource usage plot at `outputs/mriqc-resources.png`.
+
+## Converting to MP4 (Optional)
+
+For better quality and smaller file size, convert the GIF to MP4 using H.264:
+
+```bash
+ffmpeg -y -i outputs/duct-datalad-demo.gif -c:v libx264 -crf 18 -vf "scale=690:470" -pix_fmt yuv420p -movflags faststart outputs/duct-datalad-demo.mp4
+```
+
+This creates a high-quality MP4 (CRF 18) with readable text, typically ~40% smaller than the GIF.
