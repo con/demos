@@ -78,7 +78,8 @@ say "Cloning ds000007-mriqc from cerebra.fz-juelich.de..."
 run "datalad clone https://cerebra.fz-juelich.de/f.hoffstaedter/ds000007-mriqc.git ds000007-mriqc-hoffstaedter"
 run "cd ds000007-mriqc-hoffstaedter"
 
-say "Getting duct logs from git-annex..."
+say "Fetching duct logs from git-annex..."
+say "DataLad/git-annex store file content separately - we fetch it on demand."
 run "datalad get logs/duct/*.json"
 
 say "Viewing git log showing datalad run records with ReproNim containers..."
