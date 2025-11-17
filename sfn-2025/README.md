@@ -2,7 +2,7 @@
 
 Demonstrates how `duct` and `datalad` compose to provide structured, reproducible execution of neuroimaging workflows.
 
-![Demo](./duct-datalad-demo.gif)
+![Demo](./outputs/duct-datalad-demo.gif)
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ rm -rf /tmp/demo
 
 # Clean up previous recording files
 cd /home/austin/devel/demos/sfn-2025
-rm -f duct-datalad-demo.cmds duct-datalad-demo.json
+rm -f outputs/duct-datalad-demo.{cmds,json,gif}
 ```
 
 ### Create the Recording
@@ -49,17 +49,17 @@ rm -f duct-datalad-demo.cmds duct-datalad-demo.json
 Create the asciinema recording:
 
 ```bash
-SCREENCAST_HOME=/tmp/demo cast2asciinema duct-datalad-demo.sh .
+SCREENCAST_HOME=/tmp/demo cast2asciinema duct-datalad-demo.sh outputs
 ```
 
-This will generate `duct-datalad-demo.json`.
+This will generate `outputs/duct-datalad-demo.json` and `outputs/duct-datalad-demo.cmds`.
 
 ## Viewing the Recording
 
 View the asciinema recording:
 
 ```bash
-asciinema play duct-datalad-demo.json
+asciinema play outputs/duct-datalad-demo.json
 ```
 
 Or upload to asciinema.org for web viewing.
@@ -70,11 +70,11 @@ Convert the recording to an animated GIF:
 
 ```bash
 datalad run -m "Generate GIF from asciinema recording" \
-  --input duct-datalad-demo.json \
-  --output duct-datalad-demo.gif \
-  "podman run --rm -v \"\$PWD:/data\" kayvan/agg /data/duct-datalad-demo.json /data/duct-datalad-demo.gif"
+  --input outputs/duct-datalad-demo.json \
+  --output outputs/duct-datalad-demo.gif \
+  "podman run --rm -v \"\$PWD:/data\" kayvan/agg /data/outputs/duct-datalad-demo.json /data/outputs/duct-datalad-demo.gif"
 ```
 
 Note: Using `podman` instead of `docker` avoids creating files owned by root.
 
-This creates `duct-datalad-demo.gif` with full provenance tracking.
+This creates `outputs/duct-datalad-demo.gif` with full provenance tracking. The demo also generates a resource usage plot at `outputs/mriqc-resources.png`.

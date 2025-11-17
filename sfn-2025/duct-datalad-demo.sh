@@ -57,7 +57,7 @@ run "git --no-pager log --oneline -n 5"
 
 # Stage 4: Real Analysis (simplified)
 say "Stage 4: Running a more complex analysis workflow..."
-run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python $SCRIPT_DIR/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz"
+run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python $SCRIPT_DIR/scripts/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz"
 
 say "Check the execution history..."
 run "con-duct ls"
@@ -87,11 +87,7 @@ say "Viewing detailed execution info in JSON format..."
 run "con-duct ls logs/duct/* -f json_pp | head -50"
 
 say "Generating resource usage plot..."
-say "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json"
-run "echo '<<<SHOW_PLOT>>>'"
-run "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json -o /tmp/mriqc-resources.png"
-run "sleep 5"
-run "echo '<<<HIDE_PLOT>>>'"
+run "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json -o $SCRIPT_DIR/outputs/mriqc-resources.png"
 
 say "See more plot examples at https://github.com/con/duct"
 
