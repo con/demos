@@ -61,17 +61,8 @@ run "git --no-pager log --oneline -n 5"
 
 sleep 3
 run "clear"
-# Stage 4: Real Analysis (simplified)
-say "Stage 4: Running a more complex analysis workflow..."
-run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python $SCRIPT_DIR/scripts/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz"
-
-say "We can now use con-duct to check the execution history."
-run "con-duct ls"
-
-sleep 3
-run "clear"
-# Stage 5: Real-world MRIQC dataset
-say "Stage 5: Exploring a real-world MRIQC dataset with existing duct logs..."
+# Stage 4: Real-world MRIQC dataset
+say "Stage 4: Exploring a real-world MRIQC dataset with existing duct logs..."
 run "cd $DEMO_ROOT"
 
 say "Cloning ds000007-mriqc from cerebra.fz-juelich.de..."
