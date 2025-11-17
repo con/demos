@@ -13,4 +13,4 @@ run() {
 }
 
 # Source the demo script
-source duct-datalad-demo.sh
+source duct-datalad-demo.cast

@@ -49,7 +49,7 @@ rm -f outputs/duct-datalad-demo.{cmds,json,gif}
 Create the asciinema recording:
 
 ```bash
-SCREENCAST_HOME=/tmp/demo cast2asciinema duct-datalad-demo.sh outputs
+SCREENCAST_HOME=/tmp/demo cast2asciinema duct-datalad-demo.cast outputs
 ```
 
 This will generate `outputs/duct-datalad-demo.json` and `outputs/duct-datalad-demo.cmds`.
