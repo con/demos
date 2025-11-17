@@ -62,12 +62,45 @@ run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-
 say "Check the execution history..."
 run "con-duct ls"
 
+# Stage 5: Real-world MRIQC dataset
+say "Stage 5: Exploring a real-world MRIQC dataset with existing duct logs..."
+run "cd $DEMO_ROOT"
+
+say "Cleaning up any previous clone..."
+run "chmod -R +w ds000007-mriqc-hoffstaedter 2>/dev/null || true"
+run "rm -rf ds000007-mriqc-hoffstaedter"
+
+say "Cloning ds000007-mriqc from cerebra.fz-juelich.de..."
+run "datalad clone https://cerebra.fz-juelich.de/f.hoffstaedter/ds000007-mriqc.git ds000007-mriqc-hoffstaedter"
+run "cd ds000007-mriqc-hoffstaedter"
+
+say "Getting duct logs from git-annex..."
+run "datalad get logs/duct/*.json"
+
+say "Viewing git log showing datalad run records with ReproNim containers..."
+run "git --no-pager log --oneline | head -20"
+
+say "Listing execution records captured by duct..."
+run "con-duct ls logs/duct/*"
+
+say "Viewing detailed execution info in JSON format..."
+run "con-duct ls logs/duct/* -f json_pp | head -50"
+
+say "Generating resource usage plot..."
+say "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json"
+run "echo '<<<SHOW_PLOT>>>'"
+run "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json -o /tmp/mriqc-resources.png"
+run "sleep 5"
+run "echo '<<<HIDE_PLOT>>>'"
+
+say "See more plot examples at https://github.com/con/duct"
+
 # Final: Comparison
 say "Final view: Compare duct logs with datalad provenance..."
-run "echo '=== Duct execution logs ==='"
-run "con-duct ls -f summaries"
+run "echo '=== Duct execution logs from MRIQC dataset ==='"
+run "con-duct ls $DEMO_ROOT/ds000007-mriqc-hoffstaedter/logs/duct/* -f summaries | head -20"
 
-say "And the DataLad commit history..."
-run "git --no-pager log --oneline"
+say "And the DataLad commit history from MRIQC dataset..."
+run "git -C $DEMO_ROOT/ds000007-mriqc-hoffstaedter --no-pager log --oneline | head -20"
 
 say "Demo complete! Duct + DataLad = Transparent, reproducible workflows."

@@ -26,6 +26,26 @@ https://github.com/datalad/screencaster
 
 ## Generating the Demo Recording
 
+### Cleanup Before Recording
+
+Before running a new recording, clean up any previous demo runs:
+
+```bash
+# Clean up demo environment
+cd ~/tmp
+chmod -R +w myproject ds000007-mriqc-hoffstaedter 2>/dev/null || true
+rm -rf myproject ds000007-mriqc-hoffstaedter
+
+# Clean up screencaster temp directory
+rm -rf /tmp/demo
+
+# Clean up previous recording files
+cd /home/austin/devel/demos/sfn-2025
+rm -f duct-datalad-demo.cmds duct-datalad-demo.json
+```
+
+### Create the Recording
+
 Create the asciinema recording:
 
 ```bash
@@ -52,7 +72,9 @@ Convert the recording to an animated GIF:
 datalad run -m "Generate GIF from asciinema recording" \
   --input duct-datalad-demo.json \
   --output duct-datalad-demo.gif \
-  "docker run --rm -v \"\$PWD:/data\" kayvan/agg /data/duct-datalad-demo.json /data/duct-datalad-demo.gif"
+  "podman run --rm -v \"\$PWD:/data\" kayvan/agg /data/duct-datalad-demo.json /data/duct-datalad-demo.gif"
 ```
+
+Note: Using `podman` instead of `docker` avoids creating files owned by root.
 
 This creates `duct-datalad-demo.gif` with full provenance tracking.

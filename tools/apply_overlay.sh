@@ -23,8 +23,9 @@ end=${times#*,}
 echo "Applying overlay from ${start}s to ${end}s"
 
 # Apply overlay with ffmpeg
+# Use gte(t,START)*lte(t,END) instead of between for better reliability
 ffmpeg -y -i "$INPUT" -i "$IMAGE" \
-  -filter_complex "overlay=W-w-10:10:enable='between(t,${start},${end})'" \
+  -filter_complex "overlay=W-w-10:10:enable='gte(t,${start})*lte(t,${end})'" \
   -c:a copy "$OUTPUT"
 
 echo "Created $OUTPUT with overlay"

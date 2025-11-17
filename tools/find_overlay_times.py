@@ -9,16 +9,34 @@ with open(cast_path, "r", encoding="utf-8") as f:
     header = json.loads(f.readline())
     events = [json.loads(line) for line in f]
 
+# Get idle_time_limit from header if present
+idle_limit = header.get("idle_time_limit")
+
+# Calculate compressed video time for each event
+video_time = 0.0
+prev_time = 0.0
+event_video_times = []
+
+for t, kind, data in events:
+    elapsed = t - prev_time
+    if idle_limit is not None and elapsed > idle_limit:
+        # Compress idle time to the limit
+        elapsed = idle_limit
+    video_time += elapsed
+    event_video_times.append(video_time)
+    prev_time = t
+
+# Find markers in compressed timeline
 start = None
 end = None
 
-for t, kind, data in events:
+for i, (t, kind, data) in enumerate(events):
     if kind != "o":
         continue
     if "<<<SHOW_PLOT>>>" in data and start is None:
-        start = t
+        start = event_video_times[i]
     if "<<<HIDE_PLOT>>>" in data and end is None:
-        end = t
+        end = event_video_times[i]
 
 if start is None:
     raise SystemExit("No SHOW_PLOT marker found")
