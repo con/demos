@@ -17,6 +17,8 @@ run "mkdir -p $DEMO_ROOT"
 run "cd $DEMO_ROOT"
 say "Activating Python environment..."
 run "source $SCRIPT_DIR/venv/bin/activate"
+run "datalad --version"
+run "con-duct --version"
 
 say "Creating a DataLad dataset..."
 run "datalad create -c text2git myproject"
