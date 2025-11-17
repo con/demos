@@ -33,6 +33,7 @@ run "datalad install -d . -s https://github.com/ReproNim/ds000003-demo sourcedat
 
 # Stage 1: Basic Execution
 say "Stage 1: Running nib-ls with duct for structured logging and resource monitoring..."
+say "The --input flag tells datalad run to unlock git-annex files for reading."
 run "datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct --sample-interval 0.01 --report-interval 0.05 -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
 
 say "Duct captured the command, output, exit code, and resource usage."
@@ -51,6 +52,7 @@ run "datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-
 
 say "New output automatically tracked and committed by datalad."
 run "ls -lh outputs/"
+say "Note the symlink - git-annex manages large files separately from git."
 run "git --no-pager log --oneline -n 5"
 
 # Stage 4: Real Analysis (simplified)
