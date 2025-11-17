@@ -32,10 +32,10 @@ say "Installing example BOLD fMRI dataset from ReproNim..."
 run "datalad install -d . -s https://github.com/ReproNim/ds000003-demo sourcedata/raw"
 
 # Stage 1: Basic Execution
-say "Stage 1: Running nib-ls with duct for structured logging..."
-run "datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
+say "Stage 1: Running nib-ls with duct for structured logging and resource monitoring..."
+run "datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct --sample-interval 0.01 --report-interval 0.05 -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
 
-say "Duct captured the command, output, and exit code."
+say "Duct captured the command, output, exit code, and resource usage."
 run "con-duct ls"
 
 # Stage 2: Resource Monitoring
