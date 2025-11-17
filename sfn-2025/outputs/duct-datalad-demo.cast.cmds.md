@@ -1,0 +1,62 @@
+## List of the commands (with timing after #) executed in the asciinema:
+
+```mkdir -p /home/austin/tmp```      # 0.06 sec
+
+```cd /home/austin/tmp```      # 0.06 sec
+
+```export PS1='$ '```      # 0.06 sec
+
+```source /home/austin/devel/demos/sfn-2025/venv/bin/activate```      # 0.06 sec
+
+```datalad --version```      # 0.11 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```con-duct --version```      # 0.16 sec
+
+```datalad create -c text2git myproject```      # 1.00 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```cd myproject```      # 0.06 sec
+
+```mkdir -p outputs```      # 0.06 sec
+
+```datalad install -d . -s https://github.com/ReproNim/ds000003-demo sourcedata/raw```      # 1.54 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct --sample-interval 0.01 --report-interval 0.05 -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz```      # 2.44 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```con-duct ls -f summaries```      # 0.17 sec
+
+```datalad run -m 'Quick file check' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- du -sh sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz```      # 0.53 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```con-duct ls -f summaries```      # 0.16 sec
+
+```clear```      # 0.06 sec
+
+```datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/sub-02_bold.nii.gz duct -- bash -c 'gzip -c sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz > outputs/sub-02_bold.nii.gz'```      # 1.21 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```ls -lh outputs/```      # 0.06 sec
+
+```git --no-pager log --oneline -n 5```      # 0.06 sec
+
+```clear```      # 0.06 sec
+
+```cd /home/austin/tmp```      # 0.05 sec
+
+```datalad clone https://cerebra.fz-juelich.de/f.hoffstaedter/ds000007-mriqc.git ds000007-mriqc-hoffstaedter```      # 7.54 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```cd ds000007-mriqc-hoffstaedter```      # 0.06 sec
+
+```datalad get logs/duct/*.json```      # 13.13 sec [help](http://docs.datalad.org/en/latest/generated/man/datalad-.html)
+
+```git --no-pager log --oneline | head -20```      # 0.06 sec
+
+```con-duct ls logs/duct/* | head -20```      # 0.16 sec
+
+```con-duct ls logs/duct/* -f json_pp | head -50```      # 0.16 sec
+
+```con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json -o /home/austin/devel/demos/sfn-2025/outputs/mriqc-resources.png 2>/dev/null```      # 0.98 sec
+
+```echo '=== Duct execution logs from MRIQC dataset ==='```      # 0.06 sec
+
+```con-duct ls /home/austin/tmp/ds000007-mriqc-hoffstaedter/logs/duct/* -f summaries | head -20```      # 0.16 sec
+
+```git -C /home/austin/tmp/ds000007-mriqc-hoffstaedter --no-pager log --oneline | head -20```      # 0.06 sec
+
