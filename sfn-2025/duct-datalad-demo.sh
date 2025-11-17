@@ -86,7 +86,7 @@ say "Viewing git log with datalad run records and ReproNim containers..."
 run "git --no-pager log --oneline | head -20"
 
 say "Listing execution records captured by duct..."
-run "con-duct ls logs/duct/*"
+run "con-duct ls logs/duct/* | head -20"
 
 say "Viewing detailed execution info in JSON format..."
 run "con-duct ls logs/duct/* -f json_pp | head -50"
