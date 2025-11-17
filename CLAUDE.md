@@ -30,10 +30,12 @@ SCREENCAST_HOME=/tmp/demo cast2asciinema script.sh .
 Generate GIF with provenance:
 ```bash
 datalad run -m "Generate GIF from asciinema recording" \
-  --input script.json \
-  --output script.gif \
-  "docker run --rm -v \"\$PWD:/data\" kayvan/agg /data/script.json /data/script.gif"
+  --input outputs/script.json \
+  --output outputs/script.gif \
+  "podman run --rm -v \"\$PWD:/data:Z\" docker.io/kayvan/agg /data/outputs/script.json /data/outputs/script.gif"
 ```
+
+**Note:** Use `podman` instead of `docker` to avoid root-owned files. The `:Z` flag is required for SELinux contexts to allow container write access. Use full image paths like `docker.io/kayvan/agg` to avoid registry resolution issues.
 
 Top level README should be an index of demos:
  - Title, Short summary, GIF embedded in table.
