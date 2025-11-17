@@ -91,8 +91,8 @@ run "con-duct ls logs/duct/* | head -20"
 say "Viewing detailed execution info in JSON format..."
 run "con-duct ls logs/duct/* -f json_pp | head -50"
 
-say "Generating resource usage plot..."
-run "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json -o $SCRIPT_DIR/outputs/mriqc-resources.png"
+say "con-duct can even generate a plot of resource usage! (swallowing noisy matplotlib logs)"
+run "con-duct plot logs/duct/sub-01_2025.10.10T00.36.37-3899234_usage.json -o $SCRIPT_DIR/outputs/mriqc-resources.png 2>/dev/null"
 
 say "See more plot examples at https://github.com/con/duct"
 
