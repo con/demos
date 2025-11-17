@@ -59,7 +59,7 @@ run "git --no-pager log --oneline -n 5"
 say "Stage 4: Running a more complex analysis workflow..."
 run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python $SCRIPT_DIR/scripts/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz"
 
-say "Check the execution history..."
+say "We can now use con-duct to check the execution history."
 run "con-duct ls"
 
 # Stage 5: Real-world MRIQC dataset
