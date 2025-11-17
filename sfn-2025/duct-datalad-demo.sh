@@ -8,9 +8,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Set demo root directory
 DEMO_ROOT=~/tmp
 
-say "Activating Python environment..."
-run "source $SCRIPT_DIR/venv/bin/activate"
-
 say "Welcome to the Duct + DataLad demo!"
 say "We'll show how these tools compose for structured, reproducible execution."
 
@@ -18,6 +15,8 @@ say "We'll show how these tools compose for structured, reproducible execution."
 say "Setting up demo environment in $DEMO_ROOT..."
 run "mkdir -p $DEMO_ROOT"
 run "cd $DEMO_ROOT"
+say "Activating Python environment..."
+run "source $SCRIPT_DIR/venv/bin/activate"
 
 say "Creating a DataLad dataset..."
 run "datalad create -c text2git myproject"
