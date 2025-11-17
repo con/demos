@@ -39,6 +39,8 @@ run "datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/fun
 say "Duct captured the command, output, exit code, and resource usage."
 run "con-duct ls"
 
+sleep 3
+run "clear"
 # Stage 2: Resource Monitoring
 say "Stage 2: Check file size with resource monitoring..."
 run "datalad run -m 'Check file size' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- du -sh sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
@@ -46,6 +48,8 @@ run "datalad run -m 'Check file size' --input sourcedata/raw/sub-02/func/sub-02_
 say "Duct tracked peak memory and CPU usage."
 run "con-duct ls -f summaries"
 
+sleep 3
+run "clear"
 # Stage 3: Output Tracking
 say "Stage 3: Create compressed copy, tracking outputs..."
 run "datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/sub-02_bold.nii.gz duct -- bash -c 'gzip -c sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz > outputs/sub-02_bold.nii.gz'"
@@ -55,6 +59,8 @@ run "ls -lh outputs/"
 say "Note the symlink - git-annex manages large files separately from git."
 run "git --no-pager log --oneline -n 5"
 
+sleep 3
+run "clear"
 # Stage 4: Real Analysis (simplified)
 say "Stage 4: Running a more complex analysis workflow..."
 run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/mask.nii.gz duct -- python $SCRIPT_DIR/scripts/extract_mask.py sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz outputs/mask.nii.gz"
@@ -62,6 +68,8 @@ run "datalad run -m 'Extract brain mask' --input sourcedata/raw/sub-02/func/sub-
 say "We can now use con-duct to check the execution history."
 run "con-duct ls"
 
+sleep 3
+run "clear"
 # Stage 5: Real-world MRIQC dataset
 say "Stage 5: Exploring a real-world MRIQC dataset with existing duct logs..."
 run "cd $DEMO_ROOT"
