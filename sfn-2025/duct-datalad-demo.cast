@@ -37,21 +37,18 @@ say "The --input flag tells datalad run to unlock git-annex files for reading."
 run "datalad run -m 'Check BOLD file metadata' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct --sample-interval 0.01 --report-interval 0.05 -- nib-ls sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
 
 say "Duct captured the command, output, exit code, and resource usage."
-run "con-duct ls"
+run "con-duct ls -f summaries"
 
-sleep 3
-run "clear"
-# Stage 2: Resource Monitoring
-say "Stage 2: Check file size with resource monitoring..."
-run "datalad run -m 'Check file size' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- du -sh sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
+say "Now let's see what happens when a command runs too fast to capture resources..."
+run "datalad run -m 'Quick file check' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz duct -- du -sh sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz"
 
-say "Duct tracked peak memory and CPU usage."
+say "Notice: the command finished too quickly for duct to sample resource usage."
 run "con-duct ls -f summaries"
 
 sleep 3
 run "clear"
-# Stage 3: Output Tracking
-say "Stage 3: Create compressed copy, tracking outputs..."
+# Stage 2: Output Tracking
+say "Stage 2: Create compressed copy, tracking outputs..."
 run "datalad run -m 'Compress BOLD file' --input sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz --output outputs/sub-02_bold.nii.gz duct -- bash -c 'gzip -c sourcedata/raw/sub-02/func/sub-02_task-rhymejudgment_bold.nii.gz > outputs/sub-02_bold.nii.gz'"
 
 say "New output automatically tracked and committed by datalad."
@@ -61,8 +58,8 @@ run "git --no-pager log --oneline -n 5"
 
 sleep 3
 run "clear"
-# Stage 4: Real-world MRIQC dataset
-say "Stage 4: Exploring a real-world MRIQC dataset with existing duct logs..."
+# Stage 3: Real-world MRIQC dataset
+say "Stage 3: Exploring a real-world MRIQC dataset with existing duct logs..."
 run "cd $DEMO_ROOT"
 
 say "Cloning ds000007-mriqc from cerebra.fz-juelich.de..."
