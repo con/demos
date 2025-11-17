@@ -41,7 +41,7 @@ rm -rf /tmp/demo
 
 # Clean up previous recording files
 cd /home/austin/devel/demos/sfn-2025
-rm -f outputs/duct-datalad-demo.{cmds,json,gif}
+rm -f outputs/duct-datalad-demo.cast.{cmds,json,gif}
 ```
 
 ### Create the Recording
@@ -52,14 +52,23 @@ Create the asciinema recording:
 SCREENCAST_HOME=/tmp/demo cast2asciinema duct-datalad-demo.cast outputs
 ```
 
-This will generate `outputs/duct-datalad-demo.json` and `outputs/duct-datalad-demo.cmds`.
+This will generate `outputs/duct-datalad-demo.cast.json` and `outputs/duct-datalad-demo.cast.cmds`.
+
+### Commit the Recording
+
+Before generating the GIF, commit the recording files so `datalad run` can track provenance:
+
+```bash
+git add outputs/duct-datalad-demo.cast.{cmds,cmds.md,json}
+git commit -m "Add asciinema recording for duct-datalad demo"
+```
 
 ## Viewing the Recording
 
 View the asciinema recording:
 
 ```bash
-asciinema play outputs/duct-datalad-demo.json
+asciinema play outputs/duct-datalad-demo.cast.json
 ```
 
 Or upload to asciinema.org for web viewing.
@@ -70,9 +79,9 @@ Convert the recording to an animated GIF:
 
 ```bash
 datalad run -m "Generate GIF from asciinema recording" \
-  --input outputs/duct-datalad-demo.json \
+  --input outputs/duct-datalad-demo.cast.json \
   --output outputs/duct-datalad-demo.gif \
-  "podman run --rm -v \"\$PWD:/data:Z\" docker.io/kayvan/agg /data/outputs/duct-datalad-demo.json /data/outputs/duct-datalad-demo.gif"
+  "podman run --rm -v \"\$PWD:/data:Z\" docker.io/kayvan/agg /data/outputs/duct-datalad-demo.cast.json /data/outputs/duct-datalad-demo.gif"
 ```
 
 Note: Using `podman` instead of `docker` avoids creating files owned by root.
