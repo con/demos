@@ -82,7 +82,7 @@ say "Fetching duct logs from git-annex..."
 say "DataLad/git-annex store file content separately - we fetch it on demand."
 run "datalad get logs/duct/*.json"
 
-say "Viewing git log showing datalad run records with ReproNim containers..."
+say "Viewing git log with datalad run records and ReproNim containers..."
 run "git --no-pager log --oneline | head -20"
 
 say "Listing execution records captured by duct..."
