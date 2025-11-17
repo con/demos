@@ -72,7 +72,7 @@ Convert the recording to an animated GIF:
 datalad run -m "Generate GIF from asciinema recording" \
   --input outputs/duct-datalad-demo.json \
   --output outputs/duct-datalad-demo.gif \
-  "podman run --rm -v \"\$PWD:/data\" kayvan/agg /data/outputs/duct-datalad-demo.json /data/outputs/duct-datalad-demo.gif"
+  "podman run --rm -v \"\$PWD:/data:Z\" docker.io/kayvan/agg /data/outputs/duct-datalad-demo.json /data/outputs/duct-datalad-demo.gif"
 ```
 
 Note: Using `podman` instead of `docker` avoids creating files owned by root.
